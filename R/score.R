@@ -17,13 +17,23 @@
 #'
 #' @examples
 #' responses <- data.frame(
-#' q1 = c("a", "b", "b", "b"),
-#' q2 = c("d", "a", "d", "d"),
-#' q3 = c("c", "c", "c", "a"))
+#'     q1 = c("a", "b", "b", "b"),
+#'     q2 = c("d", "a", "d", "d"),
+#'     q3 = c("c", "c", "c", "a")
+#'     )
 #'
 #' answers <- c("b", "d", "c")
 #'
+#' # Display scores per participant
 #' responses |> score(answers)
+#' responses |> score(answers, display = "prop")
+#' responses |> score(answers, display = "perc")
+#'
+#' # Display scores per question
+#' responses |> score(answers, show_questions = TRUE)
+#' responses |> score(answers, display = "prop", show_questions = TRUE)
+#' responses |> score(answers, display = "perc", show_questions = TRUE)
+
 
 score <- function(responses, answers, display = "sum", show_questions = FALSE) {
     # Modify var such that correct answers are 1 and
