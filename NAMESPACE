@@ -2,3 +2,4 @@
 
 export(compare_raters)
 export(score)
+export(score_imbed)

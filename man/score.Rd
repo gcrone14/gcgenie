@@ -23,11 +23,15 @@ Scoring utility function that takes a data frame of responses and a
 vector of correct answers, returning overall test scores per
 participant or per question.
 }
+\note{
+If a participant does not answer a question (i.e., has \code{NA} in a given cell),
+the function assumes the question was answered incorrectly.
+}
 \examples{
 responses <- data.frame(
-q1 = c("a", "b", "b", "b"),
-q2 = c("d", "a", "d", "a"),
-q3 = c("c", "c", "c", "a")
+q1 = c(NA, "b", "b", "b"),
+q2 = c("d", NA, "d", "a"),
+q3 = c("c", "d", "c", "a")
 )
 
 answers <- c("b", "d", "c")
