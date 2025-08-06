@@ -1,5 +1,5 @@
 Package: gcgenie
-Title: Handy utilities for Cleaning, Comparing, and Visualizing Data
+Title: Handy Utilities for Cleaning, Comparing, and Visualizing Data
 Version: 0.0.0.1000
 Authors@R: 
     person("Gabriel", "Crone", "gcrone14@gmail.com", role = c("aut", "cre"))
