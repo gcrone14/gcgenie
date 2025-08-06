@@ -57,12 +57,15 @@ compare_raters <- function(rater_1, rater_2, beg_symbol = "", sep_symbol = "/")
     r2_cols <- ncol(rater_2)
 
     # Replace any NAs in the raters' data frames with "NA" and convert to character matrix
-    rater_1 <- rater_1 |>
-        dplyr::mutate_at(colnames(rater_1), ~tidyr::replace_na(as.character(.), "NA")) |>
-        as.matrix()
-    rater_2 <- rater_2 |>
-        dplyr::mutate_at(colnames(rater_2), ~tidyr::replace_na(as.character(.), "NA")) |>
-        as.matrix()
+    rater_1_mod <- rater_1 |>
+        as.data.frame() |>
+        dplyr::mutate_at(colnames(rater_1), ~tidyr::replace_na(as.character(.), "NA"))
+    rater_2_mod <- rater_2 |>
+        as.data.frame() |>
+        dplyr::mutate_at(colnames(rater_2), ~tidyr::replace_na(as.character(.), "NA"))
+
+    rater_1_mat <- rater_1_mod |> as.matrix()
+    rater_2_mat <- rater_2_mod |> as.matrix()
 
     # Create empty object for later storage
     new_df <- matrix(nrow = r1_rows, ncol = r1_cols,
@@ -70,14 +73,15 @@ compare_raters <- function(rater_1, rater_2, beg_symbol = "", sep_symbol = "/")
 
     # Make sure dimensions are equal
     if (r1_rows == r2_rows & r1_cols == r2_cols) {
-        new_df <- ifelse(rater_1 == rater_2,
-                         rater_1,
-                         paste0(beg_symbol, rater_1, sep_symbol, rater_2))
+        new_df <- ifelse(rater_1_mat == rater_2_mat,
+                         rater_1_mat,
+                         paste0(beg_symbol, rater_1_mat, sep_symbol, rater_2_mat))
         colnames(new_df) <- colnames(rater_1)
-        if(tibble::is_tibble(rater_1) || tibble::is_tibble(rater_2)) new_df |> as_tibble()
-        else new_df
+
+        if(tibble::is_tibble(rater_1)) new_df |> tibble::as_tibble()
+        else if(is.matrix(rater_1)) new_df |> as.matrix()
+        else if(is.data.frame(rater_1)) new_df |> as.data.frame()
     } else {
-        # Show error messages for unequal dimensions
         stop("Dimensions of data frames are not equal.")
     }
 }
