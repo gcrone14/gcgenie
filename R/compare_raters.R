@@ -45,8 +45,8 @@ compare_raters <- function(rater_1, rater_2, beg_symbol = "", sep_symbol = "/",
         stop(
             paste(
                 "\nBoth inputted objects must be matrices, data frames, or tibbles.",
-                "\nRater 1:", ifelse(valid_input(rater_1), "Valid", "Invalid"),
-                "\nRater 2:", ifelse(valid_input(rater_2), "Valid", "Invalid")
+                "\nRater 1:", ifelse(valid_data(rater_1), "Valid", "Invalid"),
+                "\nRater 2:", ifelse(valid_data(rater_2), "Valid", "Invalid")
             )
         )
     }

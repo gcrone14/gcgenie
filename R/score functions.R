@@ -1,0 +1,163 @@
+#' Efficiently Score Test Data
+#'
+#' @description
+#' Scoring utility function that takes a data frame of responses and a
+#' vector of correct answers, returning overall test scores per
+#' participant or per question.
+#'
+#'
+#' @param responses Data set (tibble, data.frame, or matrix) with responses: columns are items, rows are respondents.
+#' @param answers Vector of correct answers, with the ith element matching the ith column of the response data.
+#' @param display (Optional) Character string specifying score display per participant: "sum" (total correct), "prop" (proportion correct), or "perc" (percentage correct).
+#' @param show_questions (Optional) Logical. If TRUE, displays scores per question instead of per participant. Helps check if questions are being scored correctly.
+#'
+#' @returns A numeric vector.
+#' @export
+#'
+#' @note
+#' If a participant does not answer a question (i.e., has `NA` in a given cell),
+#' the function assumes the question was answered incorrectly.
+#'
+#'
+#' @examples
+#' responses <- data.frame(
+#' q1 = c(NA, "b", "b", "b"),
+#' q2 = c("d", NA, "d", "a"),
+#' q3 = c("c", "d", "c", "a")
+#' )
+#'
+#' answers <- c("b", "d", "c")
+#'
+#' # Display scores per participant
+#' responses |> score(answers)
+#' responses |> score(answers, display = "prop")
+#' responses |> score(answers, display = "perc")
+#'
+#' # Display scores per question
+#' responses |> score(answers, show_questions = TRUE)
+#' responses |> score(answers, display = "prop", show_questions = TRUE)
+#' responses |> score(answers, display = "perc", show_questions = TRUE)
+score <- function(responses, answers, display = "sum", show_questions = FALSE) {
+    # Safety behavior to ensure responses and answers are of the correct type
+    if (!valid_data(responses)) {
+        stop("'responses' is not a matrix, data frame, or tibble.")
+    }
+
+    if (!valid_vector(answers)) {
+        stop("'answers' is not a vector.")
+    }
+
+    # Safety behavior to ensure length of answers it the number of columns
+    # in 'responses'.
+    if (length(answers) != ncol(responses)) {
+        stop("Length of 'answers' must match the number of columns in 'responses'")
+    }
+
+    # Modify var such that correct answers are 1 and
+    # incorrect answers are 0
+    for(question in 1:length(answers)) {
+        responses[,question] <- responses[,question] == answers[question]
+    }
+
+    # Save scores for each participant
+    scores <- rowSums(responses, na.rm = TRUE)
+
+    # Save scores on each question across questions
+    questions <- colSums(responses, na.rm = TRUE)
+
+    # Questions displays the raw answers for the questions
+
+    # If you do NOT want to show questions (default), display scores
+    if(show_questions == FALSE) {
+        # If "sum", then print scores as sum
+        if(display == "sum") scores
+        # If "prop", produce scores as proportion
+        else if(display == "prop") round(scores / length(answers), 2)
+        # If "perc", produce scores as a percentage
+        else if(display == "perc") round(scores / length(answers) * 100, 2)
+        # If no valid input, then let user know
+        else stop("Invalid display selected. For `display`, please select one of: 'sum', 'prop', or 'perc'.")
+    }
+
+    # Otherwise, show questions
+    else{
+        # Save the responses data.frame, omitting all responses
+        # that contain only NAs
+        responses_complete <- responses |>
+            dplyr::filter(!dplyr::if_all(dplyr::everything(), is.na))
+
+        # Same display options, but for questions
+        if(display == "sum") questions
+        else if(display == "prop") round(questions / nrow(responses_complete), 2)
+        else if(display == "perc") round(questions / nrow(responses_complete) * 100, 2)
+        # If no valid input, then let user know
+        else stop("Invalid display selected. For `display`, please select one of: 'sum', 'prop', or 'perc'.")
+    }
+}
+
+#' Imbed Scored Data into a Data Set
+#'
+#' @description
+#' Scoring utility function that takes a data frame of responses and a
+#' vector of correct answers, imbedding the overall test scores as a new
+#' column within the inputted data set.
+#'
+#' @param responses Data set (tibble, data.frame, or matrix) with responses: columns are items, rows are respondents.
+#' @param answers Vector of correct answers, with the ith element matching the ith column of the response data.
+#' @param cols A specification (e.g., q1:q10, starts_with("q")) indicating which columns contain responses to be scored. By default, all columns are assumed to contain responses to be scored.
+#' @param display (Optional) Character string specifying score display per participant: "sum" (total correct), "prop" (proportion correct), or "perc" (percentage correct).
+#'
+#' @returns A tibble if 'responses' is a tibble, a data.frame if 'responses' is a data.frame, or a matrix if 'responses' is a matrix.
+#' @export
+#'
+#' @note
+#' If a participant does not answer a question (i.e., has `NA` in a given cell),
+#' the function assumes the question was answered incorrectly.
+#'
+#' @examples
+#' responses <- data.frame(
+#' q1 = c(NA, "b", "b", "b"),
+#' q2 = c("d", NA, "d", "a"),
+#' q3 = c("c", "d", "c", "a")
+#' )
+#'
+#' answers <- c("b", "d", "c")
+#'
+#' responses |> score_imbed(answers)
+#' responses |> score_imbed(answers, display = "prop")
+#' responses |> score_imbed(answers, display = "perc")
+score_imbed <- function(responses, answers, cols = dplyr::everything(), display = "sum") {
+
+    # Create empty data frame to store final variable
+    responses_new <- responses |>
+        dplyr::select( {{cols}} )
+
+    # Safety behavior to ensure responses and answers are of the correct type
+    if (!valid_data(responses)) {
+        stop("'responses' is not a matrix, data frame, or tibble.")
+    }
+
+    if (!valid_vector(answers)) {
+        stop("'answers' is not a vector.")
+    }
+
+    # Safety behavior to ensure length of answers it the number of columns
+    # in 'responses'.
+    if (length(answers) != ncol(responses_new)) {
+        stop("Length of 'answers' must match the number of columns in 'responses'")
+    }
+
+    # Modify var such that correct answers are 1 and
+    # incorrect answers are 0
+    for(question in 1:length(answers)) {
+        responses_new[,question] <- responses_new[,question] == answers[question]
+    }
+
+    # Save scores for each participant
+    scores <- rowSums(responses_new, na.rm = TRUE)
+
+    # Depending on display, imbed the scores inside of the responses data frame
+    if(display == "sum") responses |> dplyr::mutate(score = scores)
+    else if(display == "prop") responses |> dplyr::mutate(score = round(scores / nrow(responses_new), 2))
+    else if(display == "perc") responses |> dplyr::mutate(score = round(scores / nrow(responses_new) * 100, 2))
+}
