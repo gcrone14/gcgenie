@@ -1,14 +1,19 @@
-#' Title
+#' Efficiently Score Test Data
+#'
+#' @description
+#' Scoring utility function that takes a data frame of responses and a
+#' vector of correct answers, returning overall test scores per
+#' participant or per question.
+#'
 #'
 #' @param responses Data set (tibble, data.frame, or matrix) with responses: columns are items, rows are respondents.
 #' @param answers Vector of correct answers, with the ith element matching the ith column of the response data.
 #' @param display (Optional) Character string specifying score display per participant: "sum" (total correct), "prop" (proportion correct), or "perc" (percentage correct).
 #' @param show_questions (Optional) Logical. If TRUE, displays scores per question instead of per participant. Helps check if questions are being scored correctly.
 #'
-#' @returns A character vector.
+#' @returns A numeric vector.
 #' @export
 #'
-#' @import dplyr
 #'
 #' @examples
 #' responses <- data.frame(

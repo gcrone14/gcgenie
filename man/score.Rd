@@ -2,7 +2,7 @@
 % Please edit documentation in R/score.R
 \name{score}
 \alias{score}
-\title{Title}
+\title{Efficiently Score Test Data}
 \usage{
 score(responses, answers, display = "sum", show_questions = FALSE)
 }
@@ -16,10 +16,12 @@ score(responses, answers, display = "sum", show_questions = FALSE)
 \item{show_questions}{(Optional) Logical. If TRUE, displays scores per question instead of per participant. Helps check if questions are being scored correctly.}
 }
 \value{
-A character vector.
+A numeric vector.
 }
 \description{
-Title
+Scoring utility function that takes a data frame of responses and a
+vector of correct answers, returning overall test scores per
+participant or per question.
 }
 \examples{
 responses <- data.frame(
