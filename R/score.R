@@ -38,6 +38,15 @@
 #' responses |> score(answers, display = "prop", show_questions = TRUE)
 #' responses |> score(answers, display = "perc", show_questions = TRUE)
 score <- function(responses, answers, display = "sum", show_questions = FALSE) {
+    # Safety behavior to ensure responses and answers are of the correct type
+    if (!valid_data(responses)) {
+        stop("'responses' is not a matrix, data frame, or tibble.")
+    }
+
+    if (!valid_vector(answers)) {
+        stop("'answers' is not a vector.")
+    }
+
     # Safety behavior to ensure length of answers it the number of columns
     # in 'responses'.
     if (length(answers) != ncol(responses)) {
@@ -122,6 +131,15 @@ score_imbed <- function(responses, answers, cols = dplyr::everything(), display 
     # Create empty data frame to store final variable
     responses_new <- responses |>
         dplyr::select( {{cols}} )
+
+    # Safety behavior to ensure responses and answers are of the correct type
+    if (!valid_data(responses)) {
+        stop("'responses' is not a matrix, data frame, or tibble.")
+    }
+
+    if (!valid_vector(answers)) {
+        stop("'answers' is not a vector.")
+    }
 
     # Safety behavior to ensure length of answers it the number of columns
     # in 'responses'.
