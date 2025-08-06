@@ -10,6 +10,8 @@
 #' @param rater_2 Rater 2's data. Can be a `matrix`, `data.frame`, or `tibble`.
 #' @param beg_symbol (Optional) text string appearing before coder 1's code for inconsistent cells.
 #' @param sep_symbol Text string separating both coders' codes for inconsistent cells.
+#' @param output_class (Optional) text string specifying what to output data as. Can be one of: "matrix", "data.frame", or "tibble". By default, the outputted data will be the same format as `rater_1`.
+#'
 #'
 #' @returns A data frame (if input is a `data.frame`), a tibble (if input is a `tibble`), or a matrix (if input is a `matrix`).
 #' @export
@@ -33,7 +35,8 @@
 #'                beg_symbol = "Rater 1: ",
 #'                sep_symbol = "; Rater 2: ")
 
-compare_raters <- function(rater_1, rater_2, beg_symbol = "", sep_symbol = "/")
+compare_raters <- function(rater_1, rater_2, beg_symbol = "", sep_symbol = "/",
+                           output_class = NULL)
 {
     valid_input <- function(x) {
         is.matrix(x) || is.data.frame(x) || tibble::is_tibble(x)
@@ -78,9 +81,23 @@ compare_raters <- function(rater_1, rater_2, beg_symbol = "", sep_symbol = "/")
                          paste0(beg_symbol, rater_1_mat, sep_symbol, rater_2_mat))
         colnames(new_df) <- colnames(rater_1)
 
-        if(tibble::is_tibble(rater_1)) new_df |> tibble::as_tibble()
-        else if(is.matrix(rater_1)) new_df |> as.matrix()
-        else if(is.data.frame(rater_1)) new_df |> as.data.frame()
+        if(is.null(output_class)) {
+            if(tibble::is_tibble(rater_1)) new_df |> tibble::as_tibble()
+            else if(is.matrix(rater_1)) new_df |> as.matrix()
+            else if(is.data.frame(rater_1)) new_df |> as.data.frame()
+        }
+        else {
+            if (output_class == "tibble") {
+                tibble::as_tibble(new_df)
+            }
+            else if (output_class == "data.frame") {
+                return(as.data.frame(new_df))
+            }
+            else if (output_class == "matrix") {
+                return(as.matrix(new_df))
+            }
+
+        }
     } else {
         stop("Dimensions of data frames are not equal.")
     }

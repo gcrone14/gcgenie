@@ -4,7 +4,13 @@
 \alias{compare_raters}
 \title{Compare Two Raters' Codes Cell-by-Cell}
 \usage{
-compare_raters(rater_1, rater_2, beg_symbol = "", sep_symbol = "/")
+compare_raters(
+  rater_1,
+  rater_2,
+  beg_symbol = "",
+  sep_symbol = "/",
+  output_class = NULL
+)
 }
 \arguments{
 \item{rater_1}{Rater 1's data. Can be a \code{matrix}, \code{data.frame}, or \code{tibble}.}
@@ -14,6 +20,8 @@ compare_raters(rater_1, rater_2, beg_symbol = "", sep_symbol = "/")
 \item{beg_symbol}{(Optional) text string appearing before coder 1's code for inconsistent cells.}
 
 \item{sep_symbol}{Text string separating both coders' codes for inconsistent cells.}
+
+\item{output_class}{(Optional) text string specifying what to output data as. Can be one of: "matrix", "data.frame", or "tibble". By default, the outputted data will be the same format as \code{rater_1}.}
 }
 \value{
 A data frame (if input is a \code{data.frame}), a tibble (if input is a \code{tibble}), or a matrix (if input is a \code{matrix}).
