@@ -7,7 +7,11 @@
 freq_count(dat, ..., sort = TRUE)
 }
 \arguments{
+<<<<<<< HEAD
 \item{dat}{Data set}
+=======
+\item{dat}{Data set as a matrix, data frame, or tibble.}
+>>>>>>> 58b99d8 (Added freq_count function and its documentation)
 
 \item{...}{Additional arguments to add to count, including}
 

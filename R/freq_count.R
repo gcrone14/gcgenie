@@ -6,7 +6,7 @@
 #' and includes a perc_n column indicating the percentage each count represents
 #' relative to the total.
 #'
-#' @param dat Data set
+#' @param dat Data set as a matrix, data frame, or tibble.
 #' @param ... Additional arguments to add to count, including
 #' @param sort An optional argument that, when set to TRUE, sorts the output
 #' so that higher-frequency items appear above less frequent ones.
