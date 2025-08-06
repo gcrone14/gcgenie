@@ -16,7 +16,7 @@ score_imbed(responses, answers, cols = dplyr::everything(), display = "sum")
 \item{display}{(Optional) Character string specifying score display per participant: "sum" (total correct), "prop" (proportion correct), or "perc" (percentage correct).}
 }
 \value{
-A tibble if 'responses' is a tibble, a data.frame if 'responses' is a data.frame, or a matrix if 'responses' is a matrix.
+Returns an object of the same class as responses: a tibble, data frame, or matrix.
 }
 \description{
 Scoring utility function that takes a data frame of responses and a
@@ -50,7 +50,7 @@ responses |> score_imbed(answers, display = "prop")
 responses |> score_imbed(answers, display = "perc")
 
 Score imbedding specifying columns to be scored
-responses_full |> score_imbed(answers, cols = q1)
+responses_full |> score_imbed(answers, cols = q1:q3)
 responses_full |> score_imbed(answers, cols = dplyr::matches("^q"))
 responses_full |> score_imbed(answers, "q1":"q3")
 }
