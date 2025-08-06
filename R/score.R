@@ -36,6 +36,10 @@
 
 
 score <- function(responses, answers, display = "sum", show_questions = FALSE) {
+    if (length(answers) != ncol(responses)) {
+        stop("Length of 'answers' must match the number of columns in 'responses'")
+    }
+
     # Modify var such that correct answers are 1 and
     # incorrect answers are 0
     for(question in 1:length(answers)) {
