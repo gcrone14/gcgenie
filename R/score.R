@@ -1,10 +1,26 @@
-score <- function(responses, answers, display = "sum", show_questions = FALSE) {
-    # Note: Responses must already isolate the vector
-    # of only responses to items. Answers must also
-    # correspond to the responded-to-items on a 1-to-1
-    # basis, i.e., column 1 corresponds to answer 1,
-    # column 2 to answer 2, etc...
+#' Title
+#'
+#' @param responses Data set (tibble, data.frame, or matrix) with responses: columns are items, rows are respondents.
+#' @param answers Vector of correct answers, with the ith element matching the ith column of the response data.
+#' @param display (Optional) Character string specifying score display per participant: "sum" (total correct), "prop" (proportion correct), or "perc" (percentage correct).
+#' @param show_questions (Optional) Logical. If TRUE, displays scores per question instead of per participant. Helps check if questions are being scored correctly.
+#'
+#' @returns A character vector.
+#' @export
+#'
+#' @import dplyr
+#'
+#' @examples
+#' responses <- data.frame(
+#' q1 = c("a", "b", "b", "b"),
+#' q2 = c("d", "a", "d", "d"),
+#' q3 = c("c", "c", "c", "a"))
+#'
+#' answers <- c("b", "d", "c")
+#'
+#' responses |> score(answers)
 
+score <- function(responses, answers, display = "sum", show_questions = FALSE) {
     # Modify var such that correct answers are 1 and
     # incorrect answers are 0
     for(question in 1:length(answers)) {
@@ -28,21 +44,21 @@ score <- function(responses, answers, display = "sum", show_questions = FALSE) {
         # If "perc", produce scores as a percentage
         else if(display == "perc") round(scores / length(answers) * 100, 2)
         # If no valid input, then let user know
-        else "Invalid display selected. For `display`, please select one of: sum, prop, or perc"
+        else "Invalid display selected. For `display`, please select one of: sum, prop, or perc."
     }
 
     # Otherwise, show questions
-    else if (show_questions == TRUE) {
+    else{
 
         # Save the responses data.frame, omitting all responses
         # that contain only NAs
-        responses_complete <- responses %>%
-            filter(!if_all(everything(), is.na))
+        responses_complete <- responses |>
+            dplyr::filter(!dplyr::if_all(dplyr::everything(), is.na))
 
         # Same display options, but for questions
         if(display == "sum") questions
         else if(display == "prop") round(questions / nrow(responses_complete), 2)
         else if(display == "perc") round(questions / nrow(responses_complete) * 100, 2)
-        else "Invalid display selected. For `display`, please select one of: sum, prop, or perc"
+        else "Invalid display selected. For `display`, please select one of: sum, prop, or perc."
     }
 }
