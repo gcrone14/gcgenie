@@ -14,6 +14,11 @@
 #'
 #'
 #' @returns A data frame (if input is a `data.frame`), a tibble (if input is a `tibble`), or a matrix (if input is a `matrix`).
+#'
+#' @import dplyr
+#' @import tibble
+#' @import tidyr
+#'
 #' @export
 #'
 #' @examples
