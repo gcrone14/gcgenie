@@ -29,14 +29,28 @@ the function assumes the question was answered incorrectly.
 }
 \examples{
 responses <- data.frame(
-q1 = c(NA, "b", "b", "b"),
-q2 = c("d", NA, "d", "a"),
-q3 = c("c", "d", "c", "a")
+    q1 = c(NA, "b", "b", "b"),
+    q2 = c("d", NA, "d", "a"),
+    q3 = c("c", "d", "c", "a")
+)
+
+responses_full <- data.frame(
+    var1 = c(TRUE, FALSE, TRUE, TRUE),
+    var2 = c(1, 4, 2.2, 6),
+    q1 = c(NA, "b", "b", "b"),
+    q2 = c("d", NA, "d", "a"),
+    q3 = c("c", "d", "c", "a")
 )
 
 answers <- c("b", "d", "c")
 
+Regular score imbedding
 responses |> score_imbed(answers)
 responses |> score_imbed(answers, display = "prop")
 responses |> score_imbed(answers, display = "perc")
+
+Score imbedding specifying columns to be scored
+responses_full |> score_imbed(answers, cols = q1)
+responses_full |> score_imbed(answers, cols = dplyr::matches("^q"))
+responses_full |> score_imbed(answers, "q1":"q3")
 }
