@@ -17,10 +17,10 @@
 #'
 #' @examples
 #' responses <- data.frame(
-#'     q1 = c("a", "b", "b", "b"),
-#'     q2 = c("d", "a", "d", "d"),
-#'     q3 = c("c", "c", "c", "a")
-#'     )
+#' q1 = c("a", "b", "b", "b"),
+#' q2 = c("d", "a", "d", "a"),
+#' q3 = c("c", "c", "c", "a")
+#' )
 #'
 #' answers <- c("b", "d", "c")
 #'
