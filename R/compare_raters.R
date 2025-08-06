@@ -58,10 +58,10 @@ compare_raters <- function(rater_1, rater_2, beg_symbol = "", sep_symbol = "/")
 
     # Replace any NAs in the raters' data frames with "NA" and convert to character matrix
     rater_1 <- rater_1 |>
-        dplyr::mutate_at(colnames(rater_1), ~replace_na(as.character(.), "NA")) |>
+        dplyr::mutate_at(colnames(rater_1), ~tidyr::replace_na(as.character(.), "NA")) |>
         as.matrix()
     rater_2 <- rater_2 |>
-        dplyr::mutate_at(colnames(rater_2), ~replace_na(as.character(.), "NA")) |>
+        dplyr::mutate_at(colnames(rater_2), ~tidyr::replace_na(as.character(.), "NA")) |>
         as.matrix()
 
     # Create empty object for later storage
