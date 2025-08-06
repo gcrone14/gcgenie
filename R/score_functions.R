@@ -137,7 +137,7 @@ score <- function(responses, answers, display = "sum", show_questions = FALSE) {
 #' responses |> score_imbed(answers, display = "perc")
 #'
 #' Score imbedding specifying columns to be scored
-#' responses_full |> score_imbed(answers, cols = q1)
+#' responses_full |> score_imbed(answers, cols = q1:q3)
 #' responses_full |> score_imbed(answers, cols = dplyr::matches("^q"))
 #' responses_full |> score_imbed(answers, "q1":"q3")
 score_imbed <- function(responses, answers, cols = dplyr::everything(), display = "sum") {
