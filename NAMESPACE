@@ -2,6 +2,3 @@
 
 export(compare_raters)
 export(score)
-import(dplyr)
-import(tibble)
-import(tidyr)
