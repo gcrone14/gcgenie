@@ -7,15 +7,11 @@
 freq_count(dat, ..., sort = TRUE)
 }
 \arguments{
-<<<<<<< HEAD
-\item{dat}{Data set}
-=======
 \item{dat}{Data set as a matrix, data frame, or tibble.}
->>>>>>> 58b99d8 (Added freq_count function and its documentation)
 
-\item{...}{Additional arguments to add to count, including}
+\item{...}{Additional arguments to add to dplyr::count, such as the variables to count.}
 
-\item{sort}{An optional argument that, when set to TRUE, sorts the output
+\item{sort}{(optional) when set to TRUE, sorts the output
 so that higher-frequency items appear above less frequent ones.
 Defaults to TRUE.}
 }
@@ -32,11 +28,9 @@ relative to the total.
 dat <- data.frame(
     name = c("John", "Jane", "Jim", "Jill", "Joe", "Anna"),
     occupation = c("Academic", "Academic", "Librarian", "Firefighter", "Doctor", "Doctor"),
-    native_language = c("En", "En", "Fr", "Fr", "En", "Fr")
-)
+    native_language = c("En", "En", "Fr", "Fr", "En", "Fr"))
 
 dat |> freq_count(occupation)
 dat |> freq_count(native_language)
 dat |> freq_count(occupation, native_language)
-group |> freq_count()
 }

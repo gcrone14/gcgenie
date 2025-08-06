@@ -7,11 +7,12 @@
 #' relative to the total.
 #'
 #' @param dat Data set as a matrix, data frame, or tibble.
-#' @param ... Additional arguments to add to count, including
-#' @param sort An optional argument that, when set to TRUE, sorts the output
+#' @param ... Additional arguments to add to dplyr::count, such as the variables to count.
+#' @param sort (optional) when set to TRUE, sorts the output
 #' so that higher-frequency items appear above less frequent ones.
 #' Defaults to TRUE.
 #'
+#' @import dplyr
 #' @returns Returns an object of the same class as dat: a tibble, data frame, or matrix.
 #' @export
 #'
@@ -19,13 +20,11 @@
 #' dat <- data.frame(
 #'     name = c("John", "Jane", "Jim", "Jill", "Joe", "Anna"),
 #'     occupation = c("Academic", "Academic", "Librarian", "Firefighter", "Doctor", "Doctor"),
-#'     native_language = c("En", "En", "Fr", "Fr", "En", "Fr")
-#' )
+#'     native_language = c("En", "En", "Fr", "Fr", "En", "Fr"))
 #'
 #' dat |> freq_count(occupation)
 #' dat |> freq_count(native_language)
 #' dat |> freq_count(occupation, native_language)
-#' group |> freq_count()
 freq_count <- function(dat, ..., sort = TRUE) {
     dat |>
         dplyr::count(..., sort = sort) |>

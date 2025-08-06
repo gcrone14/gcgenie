@@ -131,12 +131,12 @@ score <- function(responses, answers, display = "sum", show_questions = FALSE) {
 #'
 #' answers <- c("b", "d", "c")
 #'
-#' Regular score imbedding
+#' # Regular score imbedding
 #' responses |> score_imbed(answers)
 #' responses |> score_imbed(answers, display = "prop")
 #' responses |> score_imbed(answers, display = "perc")
 #'
-#' Score imbedding specifying columns to be scored
+#' # Score imbedding specifying columns to be scored
 #' responses_full |> score_imbed(answers, cols = q1:q3)
 #' responses_full |> score_imbed(answers, cols = dplyr::matches("^q"))
 #' responses_full |> score_imbed(answers, "q1":"q3")
