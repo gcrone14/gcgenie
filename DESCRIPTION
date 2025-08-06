@@ -1,11 +1,10 @@
 Package: gcgenie
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Handy utilities for Cleaning, Comparing, and Visualizing Data
+Version: 0.0.0.1000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+    person("Gabriel", "Crone", "gcrone14@gmail.com", role = c("aut", "cre"))
+Description: gcgenie offers a set of practical, easy-to-use R functions designed to streamline common data analysis tasks. It includes functions for comparing rater cells, customized ggplot2 themes for consistent and polished visualizations, and data cleaning utilities. Whether you’re prepping messy datasets, generating insightful plots, or analyzing rater agreement, gcgenie acts like your personal code genie—no limit on wishes!
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
