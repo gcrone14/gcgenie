@@ -40,12 +40,8 @@
 compare_raters <- function(rater_1, rater_2, beg_symbol = "", sep_symbol = "/",
                            output_class = NULL)
 {
-    valid_input <- function(x) {
-        is.matrix(x) || is.data.frame(x) || tibble::is_tibble(x)
-    }
-
     # Make sure rater_1 and rater_2 are the appropriate type of data
-    if (!valid_input(rater_1) || !valid_input(rater_2)) {
+    if (!valid_data(rater_1) || !valid_data(rater_2)) {
         stop(
             paste(
                 "\nBoth inputted objects must be matrices, data frames, or tibbles.",
