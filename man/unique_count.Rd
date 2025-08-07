@@ -22,10 +22,8 @@ Returns an object of the same class as dat: a tibble, data frame, or matrix.
 Count Unique Values Across Delimited Entries
 }
 \examples{
-# Sample data frame
-df <- tibble::tibble(names = c("Jane,Joe", "Joe", "Joe,Kai", "Kai"))
+df <- tibble::tibble(person = c("Jane,Joe", "Joe", "Joe,Kai", "Kai"))
 
-# Count unique city mentions across delimited entries
-unique_count(df, names)
+df |> unique_count(person)
 
 }
