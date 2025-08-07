@@ -111,6 +111,8 @@ score <- function(responses, answers, display = "sum", show_questions = FALSE) {
 #' @returns Returns an object of the same class as 'responses': a tibble, data frame, or matrix.
 #' @export
 #'
+#' @import rlang
+#'
 #' @note
 #' If a participant does not answer a question (i.e., has `NA` in a given cell),
 #' the function assumes the question was answered incorrectly.

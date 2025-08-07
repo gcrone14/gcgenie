@@ -54,21 +54,21 @@ unique_count <- function(dat, var, delim = ",", ...) {
         freq_count({{var}}, ...)
 }
 
-count_plot <- function(dat, var, n = 30, label = FALSE, x_nudge = NULL, ...) {
-    var <- rlang::enquo(var)
-
-    # Define plot
-    p <- dat %>%
-        mutate(!!var := fct_reorder(!!var, n)) %>%
-        filter(!is.na(!!var), !!var != "") %>%
-        head(n = n) %>%
-        ggplot(aes(x = !!var, y = n)) +
-        geom_col(color = "black", fill = "royalblue") +
-        coord_flip() +
-        labs(y = "Number of retractions", ...)
-
-    # If label = TRUE, add labels
-    if(label == TRUE) p + geom_text(aes(label = n), nudge_y = x_nudge)
-    else p
-}
-
+# count_plot <- function(dat, var, n = 30, label = FALSE, x_nudge = NULL, ...) {
+#     var <- rlang::enquo(var)
+#
+#     # Define plot
+#     p <- dat %>%
+#         mutate(!!var := fct_reorder(!!var, n)) %>%
+#         filter(!is.na(!!var), !!var != "") %>%
+#         head(n = n) %>%
+#         ggplot(aes(x = !!var, y = n)) +
+#         geom_col(color = "black", fill = "royalblue") +
+#         coord_flip() +
+#         labs(y = "Number of retractions", ...)
+#
+#     # If label = TRUE, add labels
+#     if(label == TRUE) p + geom_text(aes(label = n), nudge_y = x_nudge)
+#     else p
+# }
+#

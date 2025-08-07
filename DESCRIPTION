@@ -13,4 +13,5 @@ BugReports: https://github.com/gcrone14/gcgenie/issues
 Imports:
     tibble,
     dplyr,
-    tidyr
+    tidyr,
+    rlang
