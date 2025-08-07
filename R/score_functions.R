@@ -16,7 +16,8 @@
 #'
 #' @note
 #' If a participant does not answer a question (i.e., has `NA` in a given cell),
-#' the function assumes the question was answered incorrectly.
+#' the function assumes the question was answered incorrectly. This function
+#' is stricter than [gcgenie::score_embed]
 #'
 #'
 #' @examples
@@ -99,7 +100,7 @@ score <- function(responses, answers, display = "sum", show_questions = FALSE) {
 #'
 #' @description
 #' Scoring utility function that takes a data frame of responses and a
-#' vector of correct answers, imbedding the overall test scores as a new
+#' vector of correct answers, embedding the overall test scores as a new
 #' column within the inputted data set.
 #'
 #' @param responses Data set (tibble, data.frame, or matrix) with responses: columns are items, rows are respondents.
@@ -134,16 +135,16 @@ score <- function(responses, answers, display = "sum", show_questions = FALSE) {
 #'
 #' answers <- c("b", "d", "c")
 #'
-#' # Regular score imbedding
-#' responses |> score_imbed(answers)
-#' responses |> score_imbed(answers, display = "prop")
-#' responses |> score_imbed(answers, display = "perc")
+#' # Regular score embedding
+#' responses |> score_embed(answers)
+#' responses |> score_embed(answers, display = "prop")
+#' responses |> score_embed(answers, display = "perc")
 #'
-#' # Score imbedding specifying columns to be scored
-#' responses_full |> score_imbed(answers, cols = q1:q3)
-#' responses_full |> score_imbed(answers, cols = dplyr::matches("^q"))
-#' responses_full |> score_imbed(answers, "q1":"q3")
-score_imbed <- function(responses, answers, cols = dplyr::everything(),
+#' # Score embedding specifying columns to be scored
+#' responses_full |> score_embed(answers, cols = q1:q3)
+#' responses_full |> score_embed(answers, cols = dplyr::matches("^q"))
+#' responses_full |> score_embed(answers, "q1":"q3")
+score_embed <- function(responses, answers, cols = dplyr::everything(),
                         display = "sum", name = "score") {
 
     # Create empty data frame to store final variable

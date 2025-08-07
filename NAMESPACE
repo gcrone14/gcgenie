@@ -3,6 +3,7 @@
 export(compare_raters)
 export(freq_count)
 export(score)
-export(score_imbed)
+export(score_embed)
 export(unique_count)
 import(dplyr)
+import(rlang)

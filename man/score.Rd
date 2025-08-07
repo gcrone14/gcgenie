@@ -25,7 +25,8 @@ participant or per question.
 }
 \note{
 If a participant does not answer a question (i.e., has \code{NA} in a given cell),
-the function assumes the question was answered incorrectly.
+the function assumes the question was answered incorrectly. This function
+is stricter than \link{score_embed}
 }
 \examples{
 responses <- data.frame(
