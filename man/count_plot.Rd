@@ -15,14 +15,20 @@ count_plot(dat, var = NULL, count_var = n, head_n = nrow(dat), label = FALSE)
 
 \item{head_n}{The number of final unique values to include in the plot.}
 
-\item{label}{(Optional) Should the plot}
+\item{label}{(Optional) If TRUE, will provide text of the frequnecy count to the right of each bar.}
 }
 \value{
 A ggplot2 column plot of frequencies.
 }
 \description{
-Generate a Count Plot from a Count Table
+Generates a column plot from a frequency table,
+with categories sorted by descending frequency.
 }
 \examples{
-# TBD
+df <- tibble::tibble(person = c("Jane,Joe", "Joe", "Joe,Kai", "Kai"))
+
+df |> unique_count(person) |> count_plot(person)
+# With labels
+df |> unique_count(person) |> count_plot(person, label = TRUE)
+
 }
