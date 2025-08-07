@@ -4,7 +4,13 @@
 \alias{score_imbed}
 \title{Imbed Scored Data into a Data Set}
 \usage{
-score_imbed(responses, answers, cols = dplyr::everything(), display = "sum")
+score_imbed(
+  responses,
+  answers,
+  cols = dplyr::everything(),
+  display = "sum",
+  name = "score"
+)
 }
 \arguments{
 \item{responses}{Data set (tibble, data.frame, or matrix) with responses: columns are items, rows are respondents.}
@@ -14,6 +20,8 @@ score_imbed(responses, answers, cols = dplyr::everything(), display = "sum")
 \item{cols}{A specification (e.g., q1:q10, starts_with("q")) indicating which columns contain responses to be scored. By default, all columns are assumed to contain responses to be scored.}
 
 \item{display}{(Optional) Character string specifying score display per participant: "sum" (total correct), "prop" (proportion correct), or "perc" (percentage correct).}
+
+\item{name}{(Optional) Character string specifying what to call the new score column.}
 }
 \value{
 Returns an object of the same class as responses: a tibble, data frame, or matrix.

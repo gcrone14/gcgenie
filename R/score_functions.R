@@ -106,7 +106,7 @@ score <- function(responses, answers, display = "sum", show_questions = FALSE) {
 #' @param answers Vector of correct answers, with the ith element matching the ith column of the response data.
 #' @param cols A specification (e.g., q1:q10, starts_with("q")) indicating which columns contain responses to be scored. By default, all columns are assumed to contain responses to be scored.
 #' @param display (Optional) Character string specifying score display per participant: "sum" (total correct), "prop" (proportion correct), or "perc" (percentage correct).
-#'
+#' @param name (Optional) Character string specifying what to call the new score column.
 #' @returns Returns an object of the same class as responses: a tibble, data frame, or matrix.
 #' @export
 #'
@@ -140,7 +140,8 @@ score <- function(responses, answers, display = "sum", show_questions = FALSE) {
 #' responses_full |> score_imbed(answers, cols = q1:q3)
 #' responses_full |> score_imbed(answers, cols = dplyr::matches("^q"))
 #' responses_full |> score_imbed(answers, "q1":"q3")
-score_imbed <- function(responses, answers, cols = dplyr::everything(), display = "sum") {
+score_imbed <- function(responses, answers, cols = dplyr::everything(),
+                        display = "sum", name = "score") {
 
     # Create empty data frame to store final variable
     responses_new <- responses |>
@@ -170,8 +171,8 @@ score_imbed <- function(responses, answers, cols = dplyr::everything(), display 
     # Save scores for each participant
     scores <- rowSums(responses_new, na.rm = TRUE)
 
-    # Depending on display, imbed the scores inside of the responses data frame
-    if(display == "sum") responses |> dplyr::mutate(score = scores)
-    else if(display == "prop") responses |> dplyr::mutate(score = round(scores / nrow(responses_new), 2))
-    else if(display == "perc") responses |> dplyr::mutate(score = round(scores / nrow(responses_new) * 100, 2))
+    # Depending on display, embed the scores inside of the responses data frame
+    if(display == "sum") responses |> dplyr::mutate(name = scores)
+    else if(display == "prop") responses |> dplyr::mutate(name = round(scores / nrow(responses_new), 2))
+    else if(display == "perc") responses |> dplyr::mutate(name = round(scores / nrow(responses_new) * 100, 2))
 }

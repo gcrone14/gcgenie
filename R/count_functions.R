@@ -31,37 +31,12 @@ freq_count <- function(dat, ..., sort = TRUE) {
         dplyr::mutate(perc_n = n/sum(n)*100)
 }
 
-#' Title
-#'
-#' @param dat
-#' @param var
-#' @param delim
-#' @param ...
-#'
-#' @returns
-#' @export
-#'
-#' @examples
 unique_count <- function(dat, var, delim = ",", ...) {
     dat %>%
         tidyr::separate_longer_delim({{var}}, delim) %>%
         freq_count({{var}}, ...)
 }
 
-
-#' Title
-#'
-#' @param dat
-#' @param var
-#' @param n
-#' @param label
-#' @param x_nudge
-#' @param ...
-#'
-#' @returns
-#' @export
-#'
-#' @examples
 count_plot <- function(dat, var, n = 30, label = FALSE, x_nudge = NULL, ...) {
     var <- rlang::enquo(var)
 
