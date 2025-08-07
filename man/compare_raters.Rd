@@ -27,10 +27,7 @@ compare_raters(
 A data frame (if input is a \code{data.frame}), a tibble (if input is a \code{tibble}), or a matrix (if input is a \code{matrix}).
 }
 \description{
-This function compares two sets of rater codes, provided as two matrices,
-data frames, or tibbles. It returns a new data object in the same structure,
-marking any cell-level differences between the two inputs using custom
-symbols specified via \code{beg_symbol} and/or \code{sep_symbol}.
+Compares two matrices, data frames, or tibbles of rater codes, returning the same structure with cell-level differences marked using \code{beg_symbol} and \code{sep_symbol}.
 }
 \examples{
 X_dat <- data.frame(var_1 = c(1, 3, 2),

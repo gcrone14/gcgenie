@@ -19,7 +19,7 @@ unique_count(dat, var, delim = ",", ...)
 Returns an object of the same class as dat: a tibble, data frame, or matrix.
 }
 \description{
-Count Unique Values Across Delimited Entries
+Generates a frequency table for a categorical variable containing delimiter-separated values by counting each unique element.
 }
 \examples{
 df <- tibble::tibble(person = c("Jane,Joe", "Joe", "Joe,Kai", "Kai"))

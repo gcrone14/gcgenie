@@ -37,6 +37,9 @@ freq_count <- function(dat, ..., sort = TRUE) {
 
 #' Count Unique Values Across Delimited Entries
 #'
+#' @description
+#' Generates a frequency table for a categorical variable containing delimiter-separated values by counting each unique element.
+#'
 #' @param dat Data set (tibble, data.frame, or matrix).
 #' @param var The name of the variable (column) to analyze, unquoted
 #' @param delim A string indicating the delimiter used to separate values within a cell.

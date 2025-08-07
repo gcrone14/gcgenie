@@ -1,10 +1,7 @@
 #' Compare Two Raters' Codes Cell-by-Cell
 #'
 #' @description
-#' This function compares two sets of rater codes, provided as two matrices,
-#' data frames, or tibbles. It returns a new data object in the same structure,
-#' marking any cell-level differences between the two inputs using custom
-#' symbols specified via `beg_symbol` and/or `sep_symbol`.
+#' Compares two matrices, data frames, or tibbles of rater codes, returning the same structure with cell-level differences marked using `beg_symbol` and `sep_symbol`.
 #'
 #' @param rater_1 Rater 1's data. Can be a `matrix`, `data.frame`, or `tibble`.
 #' @param rater_2 Rater 2's data. Can be a `matrix`, `data.frame`, or `tibble`.
