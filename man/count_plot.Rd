@@ -4,7 +4,14 @@
 \alias{count_plot}
 \title{Generate a Count Plot from a Count Table}
 \usage{
-count_plot(dat, var = NULL, count_var = n, head_n = nrow(dat), label = FALSE)
+count_plot(
+  dat,
+  var = NULL,
+  count_var = n,
+  head_n = nrow(dat),
+  label = FALSE,
+  hjust = -0.1
+)
 }
 \arguments{
 \item{dat}{Frequency table (tibble, data.frame, or matrix) that includes a categorical (counted or grouped) and a corresponding count column (usually, 'n').}
@@ -16,6 +23,8 @@ count_plot(dat, var = NULL, count_var = n, head_n = nrow(dat), label = FALSE)
 \item{head_n}{The number of final unique values to include in the plot.}
 
 \item{label}{(Optional) If TRUE, will provide text of the frequnecy count to the right of each bar.}
+
+\item{hjust}{(Optional) Horizontal offset for x-axis labels; effective only when label = TRUE.}
 }
 \value{
 A ggplot2 column plot of frequencies.
@@ -25,10 +34,11 @@ Generates a column plot from a frequency table,
 with categories sorted by descending frequency.
 }
 \examples{
-df <- tibble::tibble(person = c("Jane,Joe", "Joe", "Joe,Kai", "Kai"))
 
+df <- data.frame(person = c("Jane,Joe", "Joe", "Joe,Kai", "Kai"))
+
+# Regular count plot without labels
 df |> unique_count(person) |> count_plot(person)
 # With labels
-df |> unique_count(person) |> count_plot(person, label = TRUE)
-
+df |> unique_count(person) |> count_plot(person, label = TRUE, hjust = 2)
 }

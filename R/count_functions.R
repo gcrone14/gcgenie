@@ -68,19 +68,22 @@ unique_count <- function(dat, var, delim = ",", ...) {
 #' @param count_var The count of the variable, usually 'n', unqouted. By default, it is assumed to be 'n'.
 #' @param head_n The number of final unique values to include in the plot.
 #' @param label (Optional) If TRUE, will provide text of the frequnecy count to the right of each bar.
+#' @param hjust (Optional) Horizontal offset for x-axis labels; effective only when label = TRUE.
 #'
 #' @returns A ggplot2 column plot of frequencies.
 #' @export
 #'
 #' @examples
-#' df <- tibble::tibble(person = c("Jane,Joe", "Joe", "Joe,Kai", "Kai"))
 #'
+#' df <- data.frame(person = c("Jane,Joe", "Joe", "Joe,Kai", "Kai"))
+#'
+#' # Regular count plot without labels
 #' df |> unique_count(person) |> count_plot(person)
 #' # With labels
-#' df |> unique_count(person) |> count_plot(person, label = TRUE)
-#'
-count_plot <- function(dat, var = NULL, count_var = n, head_n = nrow(dat), label = FALSE) {
-    # Convert "var" and "count_var" to symbols
+#' df |> unique_count(person) |> count_plot(person, label = TRUE, hjust = 2)
+
+count_plot <- function(dat, var = NULL, count_var = n, head_n = nrow(dat), label = FALSE, hjust = -0.1) {
+    # Convert "var", "count_var", and "hjust" to symbols
     var <- rlang::enquo(var)
     count_var <- rlang::enquo(count_var)
 
@@ -102,15 +105,13 @@ count_plot <- function(dat, var = NULL, count_var = n, head_n = nrow(dat), label
     ggplot2::geom_col(color = "black", fill = "royalblue") +
     ggplot2::coord_flip()
 
-    if(label) {
-        # max_val <- max(dplyr::pull(dat, !!count_var), na.rm = TRUE)
-        # p +
-        #     ggplot2::geom_text(
-        #         mapping = ggplot2::aes(label = !!count_var, x = !!var, y = !!count_var),
-        #         position = ggplot2::position_identity(),
-        #         hjust = ifelse(dplyr::pull(dat, !!count_var) > 0.01 * max_val, -0.1, 1.1))
+    # Add labels if requested
+    if (label) {
+        max_y <- max(rlang::eval_tidy(count_var, data = dat))
+
+        p + ggplot2::geom_text(ggplot2::aes(label = !!count_var), hjust = -hjust) +
+            ggplot2::ylim(0, max_y + 1/2*hjust)
     }
-    # if(label) p + ggplot2::geom_text(ggplot2::aes(label = {{ count_var }}), hjust = -0.1)
     else p
 }
 
