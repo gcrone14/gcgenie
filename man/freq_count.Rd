@@ -19,10 +19,7 @@ Defaults to TRUE.}
 Returns an object of the same class as dat: a tibble, data frame, or matrix.
 }
 \description{
-This function replicates the behavior of dplyr::count(), but with more
-informative defaults: it always sorts rows in descending order of frequency
-and includes a perc_n column indicating the percentage each count represents
-relative to the total.
+Like dplyr::count(), but always sorts descending and adds a perc_n column with percentage of total counts.
 }
 \examples{
 dat <- data.frame(

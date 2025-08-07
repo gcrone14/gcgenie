@@ -1,10 +1,7 @@
 #' Convenience wrapper to `dplyr::count()`
 #'
 #' @description
-#' This function replicates the behavior of dplyr::count(), but with more
-#' informative defaults: it always sorts rows in descending order of frequency
-#' and includes a perc_n column indicating the percentage each count represents
-#' relative to the total.
+#' Like dplyr::count(), but always sorts descending and adds a perc_n column with percentage of total counts.
 #'
 #' @param dat Data set as a matrix, data frame, or tibble.
 #' @param ... Additional arguments to add to dplyr::count, such as the variables to count.
