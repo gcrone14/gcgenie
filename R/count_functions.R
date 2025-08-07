@@ -71,6 +71,8 @@ unique_count <- function(dat, var, delim = ",", ...) {
 #' @param hjust (Optional) Horizontal offset for x-axis labels; effective only when label = TRUE.
 #'
 #' @returns A ggplot2 column plot of frequencies.
+#'
+#' @import utils
 #' @export
 #'
 #' @examples
