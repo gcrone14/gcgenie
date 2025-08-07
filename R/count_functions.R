@@ -31,9 +31,26 @@ freq_count <- function(dat, ..., sort = TRUE) {
         dplyr::mutate(perc_n = n/sum(n)*100)
 }
 
+#' Count Unique Values Across Delimited Entries
+#'
+#' @param dat Data set (tibble, data.frame, or matrix).
+#' @param var The name of the variable (column) to analyze, unquoted
+#' @param delim A string indicating the delimiter used to separate values within a cell.
+#' @param ... Additional arguments passed to [gcgenie::freq_count()].
+#'
+#' @returns Returns an object of the same class as dat: a tibble, data frame, or matrix.
+#' @export
+#'
+#' @examples
+#' # Sample data frame
+#' df <- tibble::tibble(names = c("Jane,Joe", "Joe", "Joe,Kai", "Kai"))
+#'
+#' # Count unique city mentions across delimited entries
+#' unique_count(df, names)
+#'
 unique_count <- function(dat, var, delim = ",", ...) {
-    dat %>%
-        tidyr::separate_longer_delim({{var}}, delim) %>%
+    dat |>
+        tidyr::separate_longer_delim({{var}}, delim) |>
         freq_count({{var}}, ...)
 }
 

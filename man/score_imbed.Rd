@@ -24,7 +24,7 @@ score_imbed(
 \item{name}{(Optional) Character string specifying what to call the new score column.}
 }
 \value{
-Returns an object of the same class as responses: a tibble, data frame, or matrix.
+Returns an object of the same class as 'responses': a tibble, data frame, or matrix.
 }
 \description{
 Scoring utility function that takes a data frame of responses and a

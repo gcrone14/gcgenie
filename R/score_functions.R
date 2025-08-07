@@ -107,7 +107,8 @@ score <- function(responses, answers, display = "sum", show_questions = FALSE) {
 #' @param cols A specification (e.g., q1:q10, starts_with("q")) indicating which columns contain responses to be scored. By default, all columns are assumed to contain responses to be scored.
 #' @param display (Optional) Character string specifying score display per participant: "sum" (total correct), "prop" (proportion correct), or "perc" (percentage correct).
 #' @param name (Optional) Character string specifying what to call the new score column.
-#' @returns Returns an object of the same class as responses: a tibble, data frame, or matrix.
+
+#' @returns Returns an object of the same class as 'responses': a tibble, data frame, or matrix.
 #' @export
 #'
 #' @note
