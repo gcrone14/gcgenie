@@ -172,7 +172,7 @@ score_imbed <- function(responses, answers, cols = dplyr::everything(),
     scores <- rowSums(responses_new, na.rm = TRUE)
 
     # Depending on display, embed the scores inside of the responses data frame
-    if(display == "sum") responses |> dplyr::mutate(name = scores)
-    else if(display == "prop") responses |> dplyr::mutate(name = round(scores / nrow(responses_new), 2))
-    else if(display == "perc") responses |> dplyr::mutate(name = round(scores / nrow(responses_new) * 100, 2))
+    if(display == "sum") responses |> dplyr::mutate(score = scores) |> dplyr::rename({{name}} := "score")
+    else if(display == "prop") responses |> dplyr::mutate(score = round(scores / nrow(responses_new), 2)) |> dplyr::rename({{name}} := "score")
+    else if(display == "perc") responses |> dplyr::mutate(score = round(scores / nrow(responses_new) * 100, 2)) |> dplyr::rename({{name}} := "score")
 }
