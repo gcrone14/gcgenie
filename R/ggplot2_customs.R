@@ -1,45 +1,23 @@
-#' Custom ggplot2 histogram
-#'
+#' Custom Generic ggplot2 Theme
 #' @description
-#' ggplot2::goem_histogram() with useful defaults (e.g., black color,
-#' royal blue fill, and useful boundary conditions.)
+#' Customized, clean theme for any ggplot2 graph.
 #'
-#' @param color (Optional) Color of the outline of each bar.
-#' @param fill (Optional) Color of the bars themselves.
-#' @param ... Arguments passed to ggplot2::geom_histogram().
-#'
-#' @returns A histogram plot.
+#' @returns A customized ggplot2 graph.
 #' @export
 #'
 #' @examples
 #' sample_dat <- data.frame(x = rnorm(10000, mean = 10, 1))
-#' # Regular plot
+#' # Altered fill, with custom theme and labels
 #' sample_dat |>
 #'     ggplot2::ggplot(ggplot2::aes(x)) +
-#'     geom_histogram_custom(binwidth = 0.5)
-#'
-#' # Alter color and fill
-#' sample_dat |>
-#'     ggplot2::ggplot(ggplot2::aes(x)) +
-#'     geom_histogram_custom(binwidth = 0.5, color = "grey", fill = "gold")
-#'
-geom_histogram_custom <- function(..., color = "black", fill = "royalblue") {
-  ggplot2::geom_histogram(
-    color = color,
-    fill = fill,
-    boundary = 1,
-    ...
-  )
+#'     ggplot2::geom_histogram(binwidth = 1, fill = "royalblue", color = "black", boundary = 1) +
+#'     theme_custom()
+theme_custom <- function() {
+    ggplot2::theme_bw() +
+    ggplot2::theme(axis.text = ggplot2::element_text(size = 10),
+                   axis.title = ggplot2::element_text(size = 12),
+                   plot.title = ggplot2::element_text(hjust = 0.5, size = 14),
+                   panel.grid = ggplot2::element_blank(),
+                   text = ggplot2::element_text(family = "sans", size = 11)
+                   )
 }
-
-theme_hist <- function() {
-
-}
-
-# theme_hist <- function() {
-#     ggplot2::labs(y = "Frequency", title = paste("Histogram of x")) +
-#     ggplot2::theme_bw() +
-#     ggplot2::theme(axis.text = ggplot2::element_text(family = "serif", face = "bold", size = 12),
-#                    plot.title = ggplot2::element_text(hjust = 0.5, size = 16),
-#                    panel.grid = ggplot2::element_blank())
-# }
