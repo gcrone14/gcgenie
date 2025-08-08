@@ -1,4 +1,4 @@
-#' Custom Generic ggplot2 Theme
+#' Visually Appealing Custom ggplot2 Theme
 #' @description
 #' Customized, clean theme for any ggplot2 graph.
 #'

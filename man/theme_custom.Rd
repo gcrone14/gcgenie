@@ -2,7 +2,7 @@
 % Please edit documentation in R/ggplot2_customs.R
 \name{theme_custom}
 \alias{theme_custom}
-\title{Custom Generic ggplot2 Theme}
+\title{Visually Appealing Custom ggplot2 Theme}
 \usage{
 theme_custom()
 }
