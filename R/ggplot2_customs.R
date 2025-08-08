@@ -35,3 +35,11 @@ geom_histogram_custom <- function(..., color = "black", fill = "royalblue") {
 theme_hist <- function() {
 
 }
+
+# theme_hist <- function() {
+#     ggplot2::labs(y = "Frequency", title = paste("Histogram of x")) +
+#     ggplot2::theme_bw() +
+#     ggplot2::theme(axis.text = ggplot2::element_text(family = "serif", face = "bold", size = 12),
+#                    plot.title = ggplot2::element_text(hjust = 0.5, size = 16),
+#                    panel.grid = ggplot2::element_blank())
+# }
