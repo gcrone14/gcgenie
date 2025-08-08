@@ -97,3 +97,73 @@ compare_raters <- function(rater_1, rater_2, beg_symbol = "", sep_symbol = "/",
         stop("Dimensions of data frames are not equal.")
     }
 }
+
+#' Compare All Elements from Two Vectors and Flag Inconsistencies
+#'
+#'
+#' @description
+#' Compares elements of two vectors element-wise, flagging any inconsistency with
+#' a symbol denoted with sep_symbol.
+#'
+#' @param vec1 First vector (same length as vec2).
+#' @param vec2 Second vector (same length as vec1).
+#' @param beg_symbol (Optional) text string appearing before vec1's entry for inconsistent elements.
+#' @param sep_symbol Text string separating both vectors' values for inconsistent elements.
+#'
+#' @returns A character vector summarizing any inconsistencies between vectors.
+#' @export
+#'
+#' @note
+#' This function compares two vectors and returns a vector of compared entries.
+#' If you have a more full data set with two coders' entries across several variables,
+#' please use gcgenie::compare_raters().
+#'
+#' @examples
+#' # With character inputs
+#' char_1 <- c("yes", "yes", "no", "yes", "no")
+#' char_2 <- c("no", "yes", "no", "no", "yes")
+#' compare_vectors(char_1, char_2)
+#'
+#' # With numeric inputs
+#' num_1 <- 1:5
+#' num_2 <- 5:9
+#' compare_vectors(num_1, num_2, sep_symbol = ";")
+#'
+#' # In tidy context
+#' # Suppose
+#' df <- data.frame(
+#'     rater_1 = char_1,
+#'     rater_2 = char_2
+#' )
+#'
+#' df |>
+#'     dplyr::mutate(compare_col = compare_vectors(rater_1, rater_2))
+#' # With numeric inputs
+#' compare_vectors(1:3, 3:5)
+compare_vectors <- function(vec1, vec2, beg_symbol = "", sep_symbol = "/") {
+    # Ensure both inputs are vectors
+    if (!valid_vector(vec1) || !valid_vector(vec2)) {
+        stop(
+            paste(
+                "\nBoth inputted objects must be vectors.",
+                "\nRater 1:", ifelse(valid_vector(vec1), "Valid", "Invalid"),
+                "\nRater 2:", ifelse(valid_vector(vec2), "Valid", "Invalid")
+            )
+        )
+    }
+
+    # Ensure length of vectors is the same
+    if (length(vec1) != length(vec2)) {
+        stop("Vectors must have the same length.")
+    }
+
+    # Replace NAs with "NA" and coerce to character
+    vec1_mod <- ifelse(is.na(vec1), "NA", as.character(vec1))
+    vec2_mod <- ifelse(is.na(vec2), "NA", as.character(vec2))
+
+    # Compare element-wise, if equal keep value, else paste with symbols
+    ifelse(vec1_mod == vec2_mod,
+           vec1_mod,
+           paste0(beg_symbol, vec1_mod, sep_symbol, vec2_mod)
+           )
+}
