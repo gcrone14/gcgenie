@@ -1,0 +1,8 @@
+bibentry(
+  bibtype  = "Manual",
+  title    = "gcgenie: Handy Utilities for Cleaning, Comparing, and Visualizing Data",
+  author   = "Gabriel Crone",
+  year     = 2025,
+  note     = "R package version 0.0.0.9000",
+  url      = "https://github.com/gcrone14/gcgenie"
+)
