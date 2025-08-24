@@ -64,7 +64,7 @@ score <- function(responses, answers, display = "sum", show_questions = FALSE) {
     scores <- rowSums(responses, na.rm = TRUE)
 
     # Save scores on each question across questions
-    questions <- colSums(responses, na.rm = TRUE)
+    questions <- colSums(responses, na.rm = TRUE) |> as.numeric()
 
     # Questions displays the raw answers for the questions
 
@@ -96,7 +96,7 @@ score <- function(responses, answers, display = "sum", show_questions = FALSE) {
     }
 }
 
-#' Imbed Scored Data into a Data Set
+#' Embed Scored Data into a Data Set
 #'
 #' @description
 #' Scoring utility function that takes a data frame of responses and a
@@ -147,10 +147,6 @@ score <- function(responses, answers, display = "sum", show_questions = FALSE) {
 score_embed <- function(responses, answers, cols = dplyr::everything(),
                         display = "sum", name = "score") {
 
-    # Create empty data frame to store final variable
-    responses_new <- responses |>
-        dplyr::select( {{cols}} )
-
     # Safety behavior to ensure responses and answers are of the correct type
     if (!valid_data(responses)) {
         stop("'responses' is not a matrix, data frame, or tibble.")
@@ -160,10 +156,25 @@ score_embed <- function(responses, answers, cols = dplyr::everything(),
         stop("'answers' is not a vector.")
     }
 
+    # Select columns (if inputted)
+    responses_new <- responses |>
+        dplyr::select( {{cols}} )
+
     # Safety behavior to ensure length of answers it the number of columns
     # in 'responses'.
-    if (length(answers) != ncol(responses_new)) {
-        stop("Length of 'answers' must match the number of columns in 'responses'")
+    if (length(answers) < ncol(responses_new)) {
+        stop(
+            paste(
+            "Length of 'answers' is too short for the selected response columns.\n",
+            "  Did you forget to specify the correct columns with `cols`?"
+        ))
+    }
+
+
+    # Safety behavior to ensure length of answers it the number of columns
+    # in 'responses'.
+    else if (length(answers) != ncol(responses_new)) {
+        stop("Length of 'answers' must match the number of columns in 'responses'.")
     }
 
     # Modify var such that correct answers are 1 and
@@ -177,6 +188,6 @@ score_embed <- function(responses, answers, cols = dplyr::everything(),
 
     # Depending on display, embed the scores inside of the responses data frame
     if(display == "sum") responses |> dplyr::mutate(score = scores) |> dplyr::rename({{name}} := "score")
-    else if(display == "prop") responses |> dplyr::mutate(score = round(scores / nrow(responses_new), 2)) |> dplyr::rename({{name}} := "score")
-    else if(display == "perc") responses |> dplyr::mutate(score = round(scores / nrow(responses_new) * 100, 2)) |> dplyr::rename({{name}} := "score")
+    else if(display == "prop") responses |> dplyr::mutate(score = round(scores / length(answers), 2)) |> dplyr::rename({{name}} := "score")
+    else if(display == "perc") responses |> dplyr::mutate(score = round(scores / length(answers) * 100, 2)) |> dplyr::rename({{name}} := "score")
 }
