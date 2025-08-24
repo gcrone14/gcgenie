@@ -184,6 +184,8 @@ df |> unique_count(person) |> count_plot(person, label = TRUE, hjust = 2)
 
 ### ggplot2 Customizations
 Lastly, *gcgenie* contains custom themes for visually pleasing ggplot2 graphs.
+`custom_theme` is a light custom theme, and 
+`custom_theme_dark()` is a dark custom theme.
 
 ```r
 library(gcgenie)
