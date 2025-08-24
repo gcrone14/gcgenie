@@ -98,10 +98,10 @@ count_plot <- function(dat, var = NULL, count_var = n, head_n = nrow(dat), label
     }
 
     if (rlang::quo_name(count_var) == "n" && !"n" %in% names(dat)) {
-        stop(
+        stop(paste(
             "No column `n` found in `dat`.\n",
-            "ℹ Specify a different count column with `count_var`."
-        )
+            "  Specify a different count column with `count_var`."
+        ))
     }
 
     p <- dat |>

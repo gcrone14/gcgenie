@@ -2,7 +2,7 @@
 % Please edit documentation in R/score_functions.R
 \name{score_embed}
 \alias{score_embed}
-\title{Imbed Scored Data into a Data Set}
+\title{Embed Scored Data into a Data Set}
 \usage{
 score_embed(
   responses,
