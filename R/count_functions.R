@@ -97,8 +97,17 @@ count_plot <- function(dat, var = NULL, count_var = n, head_n = nrow(dat), label
         stop("var is missing. Please specify the variable to create the count plot for.")
     }
 
+    if (rlang::quo_name(count_var) == "n" && !"n" %in% names(dat)) {
+        stop(
+            "No column `n` found in `dat`.\n",
+            "ℹ Specify a different count column with `count_var`."
+        )
+    }
+
     p <- dat |>
     dplyr::mutate(
+        # Coerce var to character
+        !!var := as.character(!!var),
         !!var := forcats::fct_reorder(!!var, !!count_var)
     ) |>
     dplyr::filter(!is.na(!!var), !!var != "") |>
