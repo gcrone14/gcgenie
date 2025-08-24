@@ -66,8 +66,10 @@ compare_raters <- function(rater_1, rater_2, beg_symbol = "", sep_symbol = "/",
     rater_2_mat <- rater_2_mod |> as.matrix()
 
     # Create empty object for later storage
-    new_df <- matrix(nrow = r1_rows, ncol = r1_cols,
-                     dimnames = list(NULL, colnames(rater_1)))
+    new_df <- matrix(nrow = r1_rows, ncol = r1_cols)
+
+    # Assign colnames of new_df from rater_1
+    colnames(new_df) <- colnames(rater_1)
 
     # Make sure dimensions are equal
     if (r1_rows == r2_rows & r1_cols == r2_cols) {
@@ -76,9 +78,15 @@ compare_raters <- function(rater_1, rater_2, beg_symbol = "", sep_symbol = "/",
                          paste0(beg_symbol, rater_1_mat, sep_symbol, rater_2_mat))
         colnames(new_df) <- colnames(rater_1)
 
+        if (no_dimnames(rater_1) || no_dimnames(rater_2)) {
+            dimnames(new_df) <- NULL
+        }
+
         if(is.null(output_class)) {
             if(tibble::is_tibble(rater_1)) new_df |> tibble::as_tibble()
-            else if(is.matrix(rater_1)) new_df |> as.matrix()
+            else if(is.matrix(rater_1)) {
+                new_df |> as.matrix()
+                }
             else if(is.data.frame(rater_1)) new_df |> as.data.frame()
         }
         else {
@@ -157,6 +165,10 @@ compare_vectors <- function(vec1, vec2, beg_symbol = "", sep_symbol = "/") {
         stop("Vectors must have the same length.")
     }
 
+    # If all elements of both vectors are equal, return either vector
+    else if(all(vec1 == vec2)) vec1
+
+    else{
     # Replace NAs with "NA" and coerce to character
     vec1_mod <- ifelse(is.na(vec1), "NA", as.character(vec1))
     vec2_mod <- ifelse(is.na(vec2), "NA", as.character(vec2))
@@ -166,4 +178,5 @@ compare_vectors <- function(vec1, vec2, beg_symbol = "", sep_symbol = "/") {
            vec1_mod,
            paste0(beg_symbol, vec1_mod, sep_symbol, vec2_mod)
            )
+    }
 }
