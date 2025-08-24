@@ -123,7 +123,7 @@ theme_custom_dark <- function() {
         plot.title        = ggplot2::element_text(hjust = 0.5, size = 14, colour = "white"),
         panel.background  = ggplot2::element_rect(fill = "#222222", colour = NA),
         plot.background   = ggplot2::element_rect(fill = "#222222", colour = NA),
-        panel.border      = ggplot2::element_rect(colour = "white", fill = NA, size = 0.5),
+        panel.border      = ggplot2::element_rect(colour = "white", fill = NA, linewidth = 0.5),
         panel.grid        = ggplot2::element_blank(),
         text              = ggplot2::element_text(family = "sans", size = 11, colour = "white"),
         strip.background  = ggplot2::element_rect(fill = "#444444", colour = NA),
