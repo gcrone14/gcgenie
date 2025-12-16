@@ -69,6 +69,8 @@ unique_count <- function(dat, var, delim = ",", ...) {
 #' @param head_n The number of final unique values to include in the plot.
 #' @param label (Optional) If TRUE, will provide text of the frequnecy count to the right of each bar.
 #' @param hjust (Optional) Horizontal offset for x-axis labels; effective only when label = TRUE.
+#' @param color (Optional) Color of the bar outlines.
+#' @param fill (Optional) Color for the inside the bars.
 #'
 #' @returns A ggplot2 column plot of frequencies.
 #'
@@ -84,7 +86,7 @@ unique_count <- function(dat, var, delim = ",", ...) {
 #' # With labels
 #' df |> unique_count(person) |> count_plot(person, label = TRUE, hjust = 2)
 
-count_plot <- function(dat, var = NULL, count_var = n, head_n = nrow(dat), label = FALSE, hjust = -0.1) {
+count_plot <- function(dat, var = NULL, count_var = n, head_n = nrow(dat), label = FALSE, hjust = -0.1, color = "black", fill = "royalblue") {
     # Convert "var", "count_var", and "hjust" to symbols
     var <- rlang::enquo(var)
     count_var <- rlang::enquo(count_var)
@@ -113,7 +115,7 @@ count_plot <- function(dat, var = NULL, count_var = n, head_n = nrow(dat), label
     dplyr::filter(!is.na(!!var), !!var != "") |>
     head(head_n) |>
     ggplot2::ggplot(ggplot2::aes(x = !!var, y = !!count_var)) +
-    ggplot2::geom_col(color = "black", fill = "royalblue") +
+    ggplot2::geom_col(color = color, fill = fill) +
     ggplot2::coord_flip()
 
     # Add labels if requested

@@ -10,7 +10,9 @@ count_plot(
   count_var = n,
   head_n = nrow(dat),
   label = FALSE,
-  hjust = -0.1
+  hjust = -0.1,
+  color = "black",
+  fill = "royalblue"
 )
 }
 \arguments{
@@ -25,6 +27,10 @@ count_plot(
 \item{label}{(Optional) If TRUE, will provide text of the frequnecy count to the right of each bar.}
 
 \item{hjust}{(Optional) Horizontal offset for x-axis labels; effective only when label = TRUE.}
+
+\item{color}{(Optional) Color of the bar outlines.}
+
+\item{fill}{(Optional) Color for the inside the bars.}
 }
 \value{
 A ggplot2 column plot of frequencies.
