@@ -64,6 +64,7 @@ A ggplot2 column plot of frequencies.
 ## Examples
 
 ``` r
+
 df <- data.frame(person = c("Jane,Joe", "Joe", "Joe,Kai", "Kai"))
 
 # Regular count plot without labels

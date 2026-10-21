@@ -15,6 +15,7 @@ You can install the development version of *gcgenie* from
 [GitHub](https://github.com/gcrone14/gcgenie) with:
 
 ``` r
+
 # install.packages("pak")
 pak::pak("gcrone14/gcgenie")
 ```
@@ -29,6 +30,7 @@ If you want to compare two vectors, you can do so with
 [`compare_vectors()`](https://gcrone14.github.io/gcgenie/reference/compare_vectors.md).
 
 ``` r
+
 library(gcgenie)
 
 # Example data from two raters
@@ -76,6 +78,7 @@ and `score_embed` to insert scores as a new column into an existing data
 set.
 
 ``` r
+
 library(gcgenie)
 
 # Example responses from 4 participants on 3 questions
@@ -137,6 +140,7 @@ column with a delimeter-separated list, and `count_plot` to create a
 useful plot of count data.
 
 ``` r
+
 library(gcgenie)
 
 # ---- Sample dataset ----
@@ -192,6 +196,7 @@ graphs. `custom_theme` is a light custom theme, and
 `custom_theme_dark()` is a dark custom theme.
 
 ``` r
+
 library(gcgenie)
 library(ggplot2)
 
