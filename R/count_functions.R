@@ -114,16 +114,15 @@ count_plot <- function(dat, var = NULL, count_var = n, head_n = nrow(dat), label
     ) |>
     dplyr::filter(!is.na(!!var), !!var != "") |>
     head(head_n) |>
-    ggplot2::ggplot(ggplot2::aes(x = !!var, y = !!count_var)) +
-    ggplot2::geom_col(color = color, fill = fill) +
-    ggplot2::coord_flip()
+    ggplot2::ggplot(ggplot2::aes(x = !!count_var, y = !!var)) +
+    ggplot2::geom_col(color = color, fill = fill)
 
     # Add labels if requested
     if (label) {
-        max_y <- max(rlang::eval_tidy(count_var, data = dat))
+        max_x <- max(rlang::eval_tidy(count_var, data = dat))
 
         p + ggplot2::geom_text(ggplot2::aes(label = !!count_var), hjust = -hjust) +
-            ggplot2::ylim(0, max_y + 1/2*hjust)
+            ggplot2::xlim(0, max_x + 1/2*hjust)
     }
     else p
 }
